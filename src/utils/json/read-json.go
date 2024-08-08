@@ -3,7 +3,6 @@ package readjson
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io"
 	"os"
 	"path/filepath"
@@ -39,7 +38,6 @@ func GetValueByKey(key string) (string, error) {
 	err = json.Unmarshal(bytes, &fileData)
 
 	if err != nil {
-		fmt.Println("Aqui ", err)
 		return "", errors.New("Error on unmarshal file " + "investments.json")
 	}
 

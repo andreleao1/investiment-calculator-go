@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"os"
 	"os/exec"
 	"runtime"
@@ -36,6 +37,18 @@ func printInitialQuestions() (float64, float64, float64) {
 	return initialContribution, monthlyContribution, investimentTime
 }
 
+func printGraph(selicValue, savingValue float64) {
+	maxValue := math.Max(selicValue, savingValue)
+	scale := 5000 / maxValue
+
+	selicBars := int(selicValue * scale)
+	savingBars := int(savingValue * scale)
+
+	fmt.Println("Investment Future Value Graph:")
+	fmt.Printf("Selic:   |%s\n", string('#'*selicBars))
+	fmt.Printf("Savings: |%s\n", string('#'*savingBars))
+}
+
 func main() {
 	clearTerminal()
 	initialContribution, monthlyContribution, investimentTime := printInitialQuestions()
@@ -49,4 +62,5 @@ func main() {
 	fmt.Printf("Selic: R$ %.2f\n", selic.FutureValue)
 	fmt.Printf("Savings: R$ %.2f\n", saving.FutureValue)
 
+	printGraph(selic.FutureValue, saving.FutureValue)
 }

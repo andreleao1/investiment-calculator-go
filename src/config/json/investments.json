@@ -6,5 +6,9 @@
     {
         "key": "referenceRate",
         "value": "0.0"
+    },
+    {
+        "key": "bcUrl",
+        "value": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.11/dados/ultimos/1?formato=json"
     }
 ]

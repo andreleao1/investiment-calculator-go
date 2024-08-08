@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	"agls.com.br/src/constants"
+	centralbankclient "agls.com.br/src/infra/central-bank-client"
 	readjson "agls.com.br/src/utils/json"
 )
 
@@ -18,23 +19,11 @@ type Selic struct {
 }
 
 func New(initialContribution, monthlyContribution, investimentTime float64) *Selic {
-	investimentRateFromFile, err := readjson.GetValueByKey("selic")
-	var investmentRate float64
-	if err == nil {
-		investmentRate, err = strconv.ParseFloat(investimentRateFromFile, 64)
-
-		if err != nil {
-			defineDefaultInvestimentRate(&investmentRate)
-		}
-	} else {
-		defineDefaultInvestimentRate(&investmentRate)
-	}
-
 	return &Selic{
 		InitialContribution: initialContribution,
 		MonthlyContribution: monthlyContribution,
 		InvestimentTime:     investimentTime,
-		InvestimentRate:     investmentRate,
+		InvestimentRate:     GetCurrentSelicRate(),
 		FutureValue:         0,
 	}
 }
@@ -49,19 +38,26 @@ func (s *Selic) Calculate() float64 {
 }
 
 func GetCurrentSelicRate() float64 {
-	investimentRateFromFile, err := readjson.GetValueByKey("selic")
-	var investmentRate float64
-	if err == nil {
-		investmentRate, err = strconv.ParseFloat(investimentRateFromFile, 64)
+	selicRate, err := centralbankclient.GetSelicDataFromCentralBank()
 
-		if err != nil {
-			defineDefaultInvestimentRate(&investmentRate)
+	if err != nil {
+		investimentRateFromFile, err := readjson.GetValueByKey("selic")
+		if err == nil {
+			selicRateFromFile, err := strconv.ParseFloat(investimentRateFromFile, 64)
+
+			if err != nil {
+				fmt.Println("2")
+				defineDefaultInvestimentRate(&selicRateFromFile)
+			}
+
+			return selicRateFromFile
+		} else {
+			fmt.Println("3")
+			defineDefaultInvestimentRate(selicRate)
 		}
-	} else {
-		defineDefaultInvestimentRate(&investmentRate)
 	}
 
-	return investmentRate
+	return *selicRate
 }
 
 func getMonthlyRate(anualInterest *float64) float64 {
