@@ -2,5 +2,9 @@
     {
         "key": "selic",
         "value": "10.5"
+    },
+    {
+        "key": "referenceRate",
+        "value": "0.0"
     }
 ]
