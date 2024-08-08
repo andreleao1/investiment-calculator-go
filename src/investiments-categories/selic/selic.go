@@ -48,6 +48,22 @@ func (s *Selic) Calculate() float64 {
 	return s.FutureValue
 }
 
+func GetCurrentSelicRate() float64 {
+	investimentRateFromFile, err := readjson.GetValueByKey("selic")
+	var investmentRate float64
+	if err == nil {
+		investmentRate, err = strconv.ParseFloat(investimentRateFromFile, 64)
+
+		if err != nil {
+			defineDefaultInvestimentRate(&investmentRate)
+		}
+	} else {
+		defineDefaultInvestimentRate(&investmentRate)
+	}
+
+	return investmentRate
+}
+
 func getMonthlyRate(anualInterest *float64) float64 {
 	return *anualInterest / 100 / constants.PERYOD_PER_YEAR
 }
