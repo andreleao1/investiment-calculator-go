@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strconv"
 
-	"agls.com.br/src/constants"
-	"agls.com.br/src/investiments-categories/selic"
-	readjson "agls.com.br/src/utils/json"
+	"agls.com.br/constants"
+	"agls.com.br/investiments-categories/selic"
+	readjson "agls.com.br/utils/json"
 )
 
 type Savings struct {

@@ -8,8 +8,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"agls.com.br/src/constants"
-	readjson "agls.com.br/src/utils/json"
+	"agls.com.br/constants"
+	readjson "agls.com.br/utils/json"
 )
 
 type SelicData struct {
@@ -24,7 +24,7 @@ func GetSelicDataFromCentralBank() (*float64, error) {
 		return nil, fmt.Errorf("failed to get bcUrl: %w", err)
 	}
 
-	response, err := http.Get(bcUrl)
+	response, err := http.Get(bcUrl) //http.Get("http://www.google.com.br")
 	if err != nil {
 		return nil, fmt.Errorf("failed to get response from Central Bank: %w", err)
 	}

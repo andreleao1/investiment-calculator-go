@@ -5,9 +5,9 @@ import (
 	"math"
 	"strconv"
 
-	"agls.com.br/src/constants"
-	centralbankclient "agls.com.br/src/infra/central-bank-client"
-	readjson "agls.com.br/src/utils/json"
+	"agls.com.br/constants"
+	centralbankclient "agls.com.br/infra/central-bank-client"
+	readjson "agls.com.br/utils/json"
 )
 
 type Selic struct {
