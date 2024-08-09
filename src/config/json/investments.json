@@ -1,6 +1,6 @@
 [
     {
-        "key": "selic",
+        "key": "selicDeafultRate",
         "value": "10.5"
     },
     {
@@ -9,6 +9,10 @@
     },
     {
         "key": "bcUrl",
-        "value": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.11/dados/ultimos/1?formato=json"
+        "value": "https://api.bcb.gov.br/dados/serie/bcdata.sgs."
+    },
+    {
+        "key": "selic",
+        "value": "11/dados/ultimos/1?formato=json"
     }
 ]

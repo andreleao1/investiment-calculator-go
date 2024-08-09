@@ -29,6 +29,7 @@ func New(initialContribution, monthlyContribution, investimentTime float64) *Sel
 }
 
 func (s *Selic) Calculate() float64 {
+	fmt.Println("Selic rate: ", s.InvestimentRate)
 	mounthlyRate := getMonthlyRate(&s.InvestimentRate)
 	periods := calculateTotalPeriods(&s.InvestimentTime)
 	s.FutureValue += s.InitialContribution * math.Pow(1+mounthlyRate, periods)
@@ -38,21 +39,18 @@ func (s *Selic) Calculate() float64 {
 }
 
 func GetCurrentSelicRate() float64 {
-	selicRate, err := centralbankclient.GetSelicDataFromCentralBank()
+	selicRate, err := centralbankclient.GetDataFromCentralBank(constants.SELIC)
 
 	if err != nil {
-		investimentRateFromFile, err := readjson.GetValueByKey("selic")
+		investimentRateFromFile, err := readjson.GetValueByKey(constants.SELIC_DEFAULT_RATE_FROM_FILE)
 		if err == nil {
 			selicRateFromFile, err := strconv.ParseFloat(investimentRateFromFile, 64)
 
 			if err != nil {
-				fmt.Println("2")
 				defineDefaultInvestimentRate(&selicRateFromFile)
 			}
-
 			return selicRateFromFile
 		} else {
-			fmt.Println("3")
 			defineDefaultInvestimentRate(selicRate)
 		}
 	}
