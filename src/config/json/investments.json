@@ -14,9 +14,5 @@
     {
         "key": "selic",
         "value": "11/dados/ultimos/1?formato=json"
-    },
-    {
-        "key": "cdi",
-        "value": "12/dados/ultimos/1?formato=json"
     }
 ]
